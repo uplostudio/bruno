@@ -15,7 +15,7 @@ export default function nodesToHtml(nodes) {
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
       let tag = "div";
-      let chars = "";
+      let chars = ""; //
 
       let nodeLayoutClasses = "";
       let nodeStylingClasses = "";
