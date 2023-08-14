@@ -29,11 +29,7 @@ export const properties = [
     cssProperty: "font-size",
     shortName: "fs",
   },
-  {
-    figmaProperty: "minWidth",
-    cssProperty: "min-width",
-    shortName: "mw",
-  },
+
   {
     figmaProperty: "backgroundColor",
     cssProperty: "background-color",
@@ -43,5 +39,35 @@ export const properties = [
     figmaProperty: "letterSpacing",
     cssProperty: "letter-spacing",
     shortName: "ls",
+  },
+  {
+    figmaProperty: "cornerRadius",
+    cssProperty: "border-radius",
+    shortName: "br",
+  },
+  {
+    figmaProperty: "color",
+    cssProperty: "color",
+    shortName: "c",
+  },
+  {
+    figmaProperty: "minWidth",
+    cssProperty: "min-width",
+    shortName: "mw",
+  },
+  {
+    figmaProperty: "maxWidth",
+    cssProperty: "max-width",
+    shortName: "mxw",
+  },
+  {
+    figmaProperty: "minHeight",
+    cssProperty: "min-height",
+    shortName: "mh",
+  },
+  {
+    figmaProperty: "maxHeight",
+    cssProperty: "max-height",
+    shortName: "mxh",
   },
 ];

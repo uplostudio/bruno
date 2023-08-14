@@ -1,35 +1,39 @@
+import getClassName from "./getClassName";
 import {
   getCssPropertyFromFigmaProperty,
   getShortNameFromCssProperty,
   getShortNameFromFigmaProperty,
 } from "./getPropertyUtils";
+import isFillsEmpty from "./isFillsEmpty";
 
-export default function addCssClass(
-  property,
-  node,
-  listOfClasses,
-  nodeStylingClasses
-) {
+export default function addCssClass(property, node, styleClasses) {
   let value = node[property];
+
   let cssProperty = getCssPropertyFromFigmaProperty(property);
   let unit = "px";
 
-  if (cssProperty === "background-color") {
-    value = "yellow";
+  function getColor(letter) {
+    return Math.round(node.fills[0]?.color[letter] * 255);
+  }
+
+  const className = getClassName(value, property, node, styleClasses);
+
+  if (
+    !isFillsEmpty(node) &&
+    (property === "color" || property === "backgroundColor")
+  ) {
+    // console.log(property);
+    value = `rgba(${getColor("r")}, ${getColor("g")}, ${getColor(
+      "b"
+    )}, ${parseFloat(node.fills[0]?.color.a).toFixed(2)})`;
     unit = "";
   }
 
-  const className = `${getShortNameFromCssProperty(cssProperty)}-${value}`;
-
-  if (value === undefined) {
+  if (styleClasses?.find((styleClass) => styleClass.name === className)) {
     return;
   }
 
-  if (listOfClasses?.find((styleClass) => styleClass.name === className)) {
-    return;
-  }
-
-  listOfClasses.push({
+  styleClasses.push({
     name: className,
     property: cssProperty,
     value: value + unit,
