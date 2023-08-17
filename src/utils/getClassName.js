@@ -1,3 +1,5 @@
+import { layoutProperties } from "./_layoutProperties";
+import getColorRgbaName from "./getColorRgbaName";
 import {
   getCssPropertyFromFigmaProperty,
   getShortNameFromFigmaProperty,
@@ -10,17 +12,12 @@ export default function getClassName(value, property, node, styleClasses) {
   let cssProperty = getCssPropertyFromFigmaProperty(property);
   let shortValue = value;
 
-  function getColor(color, letter) {
-    return (color?.[letter] * 255).toFixed();
-  }
+  const layoutProperty = layoutProperties.find((p) => p.name === shortValue);
+  layoutProperty && (shortValue = layoutProperty.className);
 
   if (!isFillsEmpty(node) && isColor(property)) {
-    let color = node?.fills?.[0]?.color;
-    shortValue =
-      getColor(color, "r") +
-      getColor(color, "g") +
-      getColor(color, "b") +
-      (color?.a * 100).toFixed();
+    shortValue = getColorRgbaName(shortValue);
+
     let findSameClass = styleClasses?.find(
       (styleClass) =>
         styleClass.value === value && styleClass.property === cssProperty

@@ -34,6 +34,7 @@ export const properties = [
     figmaProperty: "backgroundColor",
     cssProperty: "background-color",
     shortName: "bg",
+    unit: "",
   },
   {
     figmaProperty: "letterSpacing",
@@ -49,6 +50,27 @@ export const properties = [
     figmaProperty: "color",
     cssProperty: "color",
     shortName: "c",
+    unit: "",
+  },
+  {
+    figmaProperty: "width",
+    cssProperty: "width",
+    shortName: "w",
+  },
+  {
+    figmaProperty: "height",
+    cssProperty: "height",
+    shortName: "h",
+  },
+  {
+    figmaProperty: "minWidth",
+    cssProperty: "min-width",
+    shortName: "mw",
+  },
+  {
+    figmaProperty: "maxWidth",
+    cssProperty: "max-width",
+    shortName: "mxw",
   },
   {
     figmaProperty: "minWidth",
@@ -69,5 +91,17 @@ export const properties = [
     figmaProperty: "maxHeight",
     cssProperty: "max-height",
     shortName: "mxh",
+  },
+  {
+    figmaProperty: "counterAxisAlignItems",
+    cssProperty: "align-items",
+    shortName: "ai",
+    unit: " ",
+  },
+  {
+    figmaProperty: "primaryAxisAlignItems",
+    cssProperty: "justify-content",
+    shortName: "jc",
+    unit: " ",
   },
 ];

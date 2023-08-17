@@ -32,11 +32,14 @@ export default function LoadFigmaNodesButton() {
   }
 
   return (
-    <div>
+    <>
       <div className="br__load-nodes-button" onClick={loadNodes}>
-        Load Nodes
+        Load Data
       </div>
-      <div dangerouslySetInnerHTML={{ __html: html }} />
-    </div>
+      <div
+        style={{ width: "100%" }}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </>
   );
 }

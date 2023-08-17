@@ -11,83 +11,70 @@ import isFillsEmpty from "./isFillsEmpty";
 import isNodePropertyDefined from "./isNodePropertyDefined";
 import isNodeWithChildren from "./isNodeWithChildren";
 import pushLayoutClasses from "./pushLayoutClasses";
+import pushStyleNode from "./pushStyleNode";
 
 export default function nodesToHtml(nodes) {
   let html = "";
   let styleClasses = [];
-  let nodeLayoutClasses = "";
+  let isFisrt = true;
 
-  function getNode(nodes) {
+  function getNode(nodes, parent) {
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
       let tag = "div";
       let chars = "";
 
-      nodeLayoutClasses = "";
-      let nodeStylingClasses = "";
+      let nodeLayoutClasses = [];
+      let nodeStylingClasses = [];
 
-      function pushStyle(node, property) {
-        if (isColor(property) && isFillsEmpty(node)) {
-          return;
-        }
-
-        if (!isColor(property) && isNodePropertyDefined(node, property)) {
-          return;
-        }
-
-        let value = "";
-        if (!isColor(property)) {
-          value = node[property];
-        }
-        if (isColor(property)) {
-          value = node.fills[0]?.color;
-        }
-
-        nodeStylingClasses =
-          nodeStylingClasses +
-          getClassName(value, property, node, styleClasses) +
-          " ";
-        addCssClass(property, node, styleClasses);
+      function pushStyle(property, isStyling = false) {
+        pushStyleNode(
+          isStyling ? node.style : node,
+          property,
+          nodeStylingClasses,
+          styleClasses
+        );
       }
 
       switch (node.type) {
         case "FRAME":
-          //   pushLayoutClasses(node, nodeLayoutClasses);
-          if (node["layoutMode"] === "HORIZONTAL") {
-            nodeLayoutClasses += "hor ";
-          }
-          pushStyle(node, "itemSpacing");
-          pushStyle(node, "paddingTop");
-          pushStyle(node, "paddingBottom");
-          pushStyle(node, "paddingLeft");
-          pushStyle(node, "paddingRight");
-          pushStyle(node, "backgroundColor");
-          pushStyle(node, "cornerRadius");
+          pushLayoutClasses(node, nodeLayoutClasses, pushStyle, parent);
+          pushStyle("paddingTop");
+          pushStyle("paddingBottom");
+          pushStyle("paddingLeft");
+          pushStyle("paddingRight");
+          pushStyle("backgroundColor");
+          pushStyle("cornerRadius");
           break;
         case "TEXT":
           tag = "p";
-          chars = node.characters;
-          pushStyle(node.style, "fontSize");
-          pushStyle(node.style, "letterSpacing");
-          pushStyle(node, "color");
+          pushStyle("fontSize", true);
+          pushStyle("letterSpacing", true);
+          pushStyle("color");
           break;
       }
-      pushStyle(node, "minWidth");
-      pushStyle(node, "maxWidth");
-      pushStyle(node, "minHeight");
-      pushStyle(node, "maxHeight");
+      pushStyle("minWidth");
+      pushStyle("maxWidth");
+      pushStyle("minHeight");
+      pushStyle("maxHeight");
 
-      html += `<${tag} class="${nodeLayoutClasses + nodeStylingClasses}" id="${
-        node.id
+      const nodeLayoutClassesString = nodeLayoutClasses.join(" ");
+      const nodeStylingClassesString = nodeStylingClasses.join(" ");
+
+      html += `<${tag} n="${node.name}" class="${isFisrt ? "as-s " : ""}${
+        nodeLayoutClassesString + " " + nodeStylingClassesString
       }">`;
-      html += chars;
+      isFisrt && (isFisrt = false);
+      node.characters && (html += node.characters);
+
       if (isNodeWithChildren(node)) {
-        getNode(node.children);
+        getNode(node.children, node);
       }
+
       html += `</${tag}>`;
     }
   }
-  getNode([nodes]);
+  getNode([nodes], { layoutMode: "VERTICAL" });
 
   html +=
     "<style>" + layoutClasses + generateStylingCss(styleClasses) + "</style>";

@@ -11,3 +11,7 @@ export function getShortNameFromFigmaProperty(property) {
 export function getCssPropertyFromFigmaProperty(property) {
   return properties?.find((p) => p.figmaProperty === property)?.cssProperty;
 }
+
+export function getUnitFromFigmaProperty(property) {
+  return properties?.find((p) => p.figmaProperty === property)?.unit || "px";
+}

@@ -1,41 +1,36 @@
+import { layoutProperties } from "./_layoutProperties";
 import getClassName from "./getClassName";
+import getColorRgbaValue from "./getColorRgbaValue";
 import {
   getCssPropertyFromFigmaProperty,
-  getShortNameFromCssProperty,
-  getShortNameFromFigmaProperty,
+  getUnitFromFigmaProperty,
 } from "./getPropertyUtils";
+import isColor from "./isColor";
+import isExistingClassWithSameName from "./isExistingClassWithSameName";
 import isFillsEmpty from "./isFillsEmpty";
 
-export default function addCssClass(property, node, styleClasses) {
-  let value = node[property];
-
+export default function addCssClass(value, property, node, styleClasses) {
   let cssProperty = getCssPropertyFromFigmaProperty(property);
-  let unit = "px";
-
-  function getColor(letter) {
-    return Math.round(node.fills[0]?.color[letter] * 255);
-  }
+  let unit = getUnitFromFigmaProperty(property);
 
   const className = getClassName(value, property, node, styleClasses);
 
-  if (
-    !isFillsEmpty(node) &&
-    (property === "color" || property === "backgroundColor")
-  ) {
-    // console.log(property);
-    value = `rgba(${getColor("r")}, ${getColor("g")}, ${getColor(
-      "b"
-    )}, ${parseFloat(node.fills[0]?.color.a).toFixed(2)})`;
+  const layoutValue = layoutProperties.find((p) => p.name === value);
+  layoutValue && (value = layoutValue.value);
+
+  if (!isFillsEmpty(node) && isColor(property)) {
+    value = getColorRgbaValue(value);
     unit = "";
   }
 
-  if (styleClasses?.find((styleClass) => styleClass.name === className)) {
+  if (isExistingClassWithSameName(styleClasses, className)) {
     return;
   }
 
   styleClasses.push({
     name: className,
     property: cssProperty,
-    value: value + unit,
+    value: value,
+    unit: unit,
   });
 }
