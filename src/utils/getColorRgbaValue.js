@@ -4,5 +4,5 @@ export default function getColorRgbaValue(color) {
   return `rgba(${getColorSingleRgbaValue(color, "r")}, 
   ${getColorSingleRgbaValue(color, "g")}, 
   ${getColorSingleRgbaValue(color, "b")}, 
-  ${getColorSingleRgbaValue(color, "a")})`;
+  ${color.a})`;
 }

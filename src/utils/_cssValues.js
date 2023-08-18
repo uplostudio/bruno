@@ -14,7 +14,6 @@ export const layoutProperties = [
     className: "s",
     value: "start",
   },
-
   {
     name: "SPACE_BETWEEN",
     className: "sb",
@@ -34,5 +33,25 @@ export const layoutProperties = [
     name: "STRETCH",
     className: "st",
     value: "stretch",
+  },
+  {
+    name: "LEFT",
+    className: "l",
+    value: "left",
+  },
+  {
+    name: "RIGHT",
+    className: "r",
+    value: "right",
+  },
+  {
+    name: "COLUMN",
+    className: "h",
+    value: "column",
+  },
+  {
+    name: "ROW",
+    className: "v",
+    value: "row",
   },
 ];

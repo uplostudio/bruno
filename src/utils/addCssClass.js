@@ -1,4 +1,4 @@
-import { layoutProperties } from "./_layoutProperties";
+import { layoutProperties } from "./_cssValues";
 import getClassName from "./getClassName";
 import getColorRgbaValue from "./getColorRgbaValue";
 import {
@@ -9,7 +9,13 @@ import isColor from "./isColor";
 import isExistingClassWithSameName from "./isExistingClassWithSameName";
 import isFillsEmpty from "./isFillsEmpty";
 
-export default function addCssClass(value, property, node, styleClasses) {
+export default function addCssClass(
+  value,
+  property,
+  node,
+  styleClasses,
+  isVariable
+) {
   let cssProperty = getCssPropertyFromFigmaProperty(property);
   let unit = getUnitFromFigmaProperty(property);
 
@@ -19,12 +25,18 @@ export default function addCssClass(value, property, node, styleClasses) {
   layoutValue && (value = layoutValue.value);
 
   if (!isFillsEmpty(node) && isColor(property)) {
+    console.log(node);
     value = getColorRgbaValue(value);
     unit = "";
   }
 
   if (isExistingClassWithSameName(styleClasses, className)) {
     return;
+  }
+
+  if (isVariable) {
+    value = `var(--${value})`;
+    unit = "";
   }
 
   styleClasses.push({

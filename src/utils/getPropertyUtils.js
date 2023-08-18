@@ -1,4 +1,4 @@
-import { properties } from "./_properties";
+import { properties } from "./_cssProperties";
 
 export function getShortNameFromCssProperty(property) {
   return properties?.find((p) => p.cssProperty === property)?.shortName;

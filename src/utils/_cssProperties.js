@@ -1,5 +1,25 @@
 export const properties = [
   {
+    figmaProperty: "right",
+    cssProperty: "right",
+    shortName: "r",
+  },
+  {
+    figmaProperty: "left",
+    cssProperty: "left",
+    shortName: "l",
+  },
+  {
+    figmaProperty: "top",
+    cssProperty: "top",
+    shortName: "t",
+  },
+  {
+    figmaProperty: "bottom",
+    cssProperty: "bottom",
+    shortName: "b",
+  },
+  {
     figmaProperty: "itemSpacing",
     cssProperty: "gap",
     shortName: "g",
@@ -29,7 +49,6 @@ export const properties = [
     cssProperty: "font-size",
     shortName: "fs",
   },
-
   {
     figmaProperty: "backgroundColor",
     cssProperty: "background-color",
@@ -40,6 +59,24 @@ export const properties = [
     figmaProperty: "letterSpacing",
     cssProperty: "letter-spacing",
     shortName: "ls",
+  },
+  {
+    figmaProperty: "lineHeightPercentFontSize",
+    cssProperty: "line-height",
+    shortName: "lh",
+    unit: "%",
+  },
+  {
+    figmaProperty: "fontFamily",
+    cssProperty: "font-family",
+    shortName: "ff",
+    unit: " ",
+  },
+  {
+    figmaProperty: "fontWeight",
+    cssProperty: "font-weight",
+    shortName: "fw",
+    unit: " ",
   },
   {
     figmaProperty: "cornerRadius",
@@ -102,6 +139,12 @@ export const properties = [
     figmaProperty: "primaryAxisAlignItems",
     cssProperty: "justify-content",
     shortName: "jc",
+    unit: " ",
+  },
+  {
+    figmaProperty: "textAlignHorizontal",
+    cssProperty: "text-align",
+    shortName: "ta",
     unit: " ",
   },
 ];

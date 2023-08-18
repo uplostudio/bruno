@@ -8,4 +8,5 @@
   font-size: 14px;
   border: 1px solid #eee;
   cursor: pointer;
+  z-index: 10000;
 }

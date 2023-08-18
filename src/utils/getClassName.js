@@ -1,4 +1,4 @@
-import { layoutProperties } from "./_layoutProperties";
+import { layoutProperties } from "./_cssValues";
 import getColorRgbaName from "./getColorRgbaName";
 import {
   getCssPropertyFromFigmaProperty,
